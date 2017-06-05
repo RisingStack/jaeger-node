@@ -1,3 +1,3 @@
 'use strict'
 
-// TODO: instrumentation
+module.exports = require('./tracer')

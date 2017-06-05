@@ -5,19 +5,27 @@ const expressInstrumentation = require('../src/instrumentation/express')
 const expressErrorInstrumentation = require('../src/instrumentation/expressError')
 const Tracer = require('../src/tracer')
 
-const tracer = Tracer.create('my-server', {
-  gitTag: 'foobar'
+const tracer = new Tracer({
+  serviceName: 'my-server-2',
+  tags: {
+    gitTag: 'foobar'
+  }
 })
 
-expressInstrumentation.patch(express, tracer)
-expressErrorInstrumentation.patch(express, tracer)
+// TODO: instrument automatically
+expressInstrumentation.patch(express, tracer._tracer)
+expressErrorInstrumentation.patch(express, tracer._tracer)
 
 const port = process.env.PORT || 3000
 
 const app = express()
 
-app.get('/hello', (req, res) => {
+function myError () {
   throw new Error('My Error')
+}
+
+app.get('/hello', (req, res) => {
+  myError()
   res.send('Hello World!')
 })
 

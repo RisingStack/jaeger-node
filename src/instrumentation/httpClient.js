@@ -7,6 +7,7 @@ const _ = require('lodash')
 // eslint-disable-next-line
 const httpAgent = require('_http_agent')
 const semver = require('semver')
+const cls = require('../cls')
 
 const OPERATION_NAME = 'http_request'
 
@@ -44,11 +45,17 @@ function patchHttp (http, tracer) {
     // On Node 8+ we use the following function to patch both request and get.
     // Here `request` may also happen to be `get`.
     return function requestTrace (options, callback) {
+      const context = cls.getContext()
+
       if (!options) {
         return request.apply(this, [options, callback])
       }
 
-      const span = tracer.startSpan(OPERATION_NAME)
+      const span = context.span ?
+        tracer.startSpan(OPERATION_NAME, {
+          childOf: context.span.context()
+        })
+        : tracer.startSpan(OPERATION_NAME)
 
       options = _.isString(options) ? url.parse(options) : _.merge({}, options)
       options.headers = options.headers || {}

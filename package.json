@@ -1,5 +1,5 @@
 {
-  "name": "jaeger-node",
+  "name": "@risingstack/jaeger",
   "version": "1.0.0",
   "description": "Out of the box OpenTracing instrumentation for Node.js and Jaeger",
   "main": "index.js",
@@ -23,6 +23,7 @@
     "tracing"
   ],
   "dependencies": {
+    "asyncctx": "1.0.0",
     "jaeger-client": "3.5.2",
     "lodash": "4.17.4",
     "methods": "1.1.2",

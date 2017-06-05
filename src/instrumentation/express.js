@@ -4,6 +4,7 @@ const opentracing = require('opentracing')
 const shimmer = require('shimmer')
 const SpanContext = require('jaeger-client').SpanContext
 const methods = require('methods').concat('use', 'route', 'param', 'all')
+const cls = require('../cls')
 const { isExpressV4 } = require('./util')
 
 const OPERATION_NAME = 'http_server'
@@ -37,6 +38,8 @@ function patchModuleRoot (express, tracer) {
 
     span.setTag(opentracing.Tags.HTTP_URL, url)
     span.setTag(opentracing.Tags.HTTP_METHOD, req.method)
+
+    cls.setContext({ span })
 
     req._span = span
 
