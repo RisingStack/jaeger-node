@@ -2,6 +2,8 @@
 
 Out of the box distributed tracing for Node.js applications.
 
+![jaeger-node](https://cloud.githubusercontent.com/assets/1764512/26798480/e3db9614-4a30-11e7-9d4d-4f9bedd09e58.png)
+
 ## Technologies
 
 - [async_hooks](https://github.com/nodejs/node/blob/master/doc/api/async_hooks.md)
