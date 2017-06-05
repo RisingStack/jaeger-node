@@ -8,6 +8,11 @@ Out of the box distributed tracing for Node.js applications.
 - [Jaeger](https://uber.github.io/jaeger/)
 - [OpenTracing](http://opentracing.io/)
 
+**Requirements**
+
+- Node.js, >= v8
+- Jaeger
+
 ## Getting started
 
 ```js
