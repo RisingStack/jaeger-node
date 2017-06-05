@@ -34,6 +34,8 @@ node example/server1.js
 node example/server2.js
 ```
 
+![Jaeger Node.js tracing](https://cloud.githubusercontent.com/assets/1764512/26798299/38b54ff0-4a30-11e7-8cff-2b04096f6ef3.png)
+
 ## TODO
 
 - automatic instrumentation for `require`
