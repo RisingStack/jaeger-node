@@ -16,14 +16,18 @@ Out of the box distributed tracing for Node.js applications.
 ## Getting started
 
 ```js
+// must be in the first two lines of your application
 const Tracer = require('@risingstack/jaeger')
-
 const tracer = new Tracer({
   serviceName: 'my-server-2',
   tags: {
     gitTag: 'foobar'
   }
 })
+
+// rest of your code
+const express = require('express')
+// ...
 ```
 
 **To start Jaeger and visit it's dashboard:**
@@ -41,9 +45,13 @@ node example/server2.js
 
 ![Jaeger Node.js tracing](https://cloud.githubusercontent.com/assets/1764512/26815965/989ffa00-4a8f-11e7-888d-4e3bb380f2ad.png)
 
+## Instrumentations
+
+- [http](https://nodejs.org/api/http.html)
+- [express](https://expressjs.com/)
+
 ## TODO
 
-- automatic instrumentation for `require`
 - database instrumentation
 - test coverage
 - multiple sampling algorithms
