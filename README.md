@@ -61,7 +61,7 @@ Create a new Tracer and instrument modules.
   - example: `{ gitHash: 'foobar' }`
 - `options.maxSamplesPerSecond`: maximum number of samples per second
   - *optional*
-  - default: `10`
+  - default: `1`
 - `options.sender`: sender configuration *(Your Jaeger backend)*
   - *optional*
   - default: `{ host: 'localhost', port: 6832, maxPacketSize: 65000 }`

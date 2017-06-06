@@ -10,7 +10,7 @@ class Tracer {
   constructor ({
     serviceName,
     tags = {},
-    maxSamplesPerSecond = 10,
+    maxSamplesPerSecond = 1,
     sender = {},
     logger = undefined
   }) {
