@@ -4,10 +4,11 @@ const shimmer = require('shimmer')
 const opentracing = require('opentracing')
 const cls = require('../cls')
 const { isExpressV4 } = require('./util')
+const expressInstrumentation = require('./express')
 
 const OPERATION_NAME = 'express_error_handler'
 
-function patch (express) {
+function patch (express, tracer) {
   // support only express@4
   if (!isExpressV4(express)) {
     return
@@ -16,16 +17,29 @@ function patch (express) {
   let errorHandlerLayer
 
   function expressErrorHandler (err, req, res, next) {
-    const { span } = cls.getContext()
+    const context = cls.getContext() || {}
+    const parentSpan = context[expressInstrumentation.OPERATION_NAME]
 
+    // no span in cls
+    if (!parentSpan) {
+      next(err)
+      return
+    }
+
+    parentSpan.setTag(opentracing.Tags.ERROR, true)
+
+    // error span
+    const span = tracer.startSpan(OPERATION_NAME, {
+      childOf: parentSpan.context()
+    })
     span.log({
       event: 'error',
       'error.object': err,
       message: err.message,
       stack: err.stack
     })
-
     span.setTag(opentracing.Tags.ERROR, true)
+    span.finish()
 
     next(err)
   }
@@ -85,6 +99,7 @@ function patch (express) {
 function unpatch () {}
 
 module.exports = {
+  module: 'express',
   OPERATION_NAME,
   patch,
   unpatch

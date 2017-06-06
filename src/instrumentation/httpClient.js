@@ -45,23 +45,15 @@ function patchHttp (http, tracer) {
     // On Node 8+ we use the following function to patch both request and get.
     // Here `request` may also happen to be `get`.
     return function requestTrace (options, callback) {
-      const context = cls.getContext()
-
       if (!options) {
         return request.apply(this, [options, callback])
       }
 
-      const span = context.span ?
-        tracer.startSpan(OPERATION_NAME, {
-          childOf: context.span.context()
-        })
-        : tracer.startSpan(OPERATION_NAME)
+      const span = cls.startSpan(tracer, OPERATION_NAME)
 
       options = _.isString(options) ? url.parse(options) : _.merge({}, options)
       options.headers = options.headers || {}
 
-
-      options.headers['trace-span-operation'] = OPERATION_NAME
       options.headers['trace-span-context'] = span.context().toString()
 
       const uri = extractUrl(options)
@@ -107,6 +99,7 @@ function patchHttp (http, tracer) {
 }
 
 module.exports = {
+  module: 'http',
   OPERATION_NAME,
   patch: patchHttp,
   unpatch: unpatchHttp

@@ -39,7 +39,7 @@ node example/server1.js
 node example/server2.js
 ```
 
-![Jaeger Node.js tracing](https://cloud.githubusercontent.com/assets/1764512/26798299/38b54ff0-4a30-11e7-8cff-2b04096f6ef3.png)
+![Jaeger Node.js tracing](https://cloud.githubusercontent.com/assets/1764512/26815965/989ffa00-4a8f-11e7-888d-4e3bb380f2ad.png)
 
 ## TODO
 

@@ -8,6 +8,7 @@ const cls = require('../cls')
 const { isExpressV4 } = require('./util')
 
 const OPERATION_NAME = 'http_server'
+const TAG_REQUEST_PATH = 'request_path'
 
 function patchModuleRoot (express, tracer) {
   // support only express@4
@@ -28,7 +29,6 @@ function patchModuleRoot (express, tracer) {
   function middleware (req, res, next) {
     // start
     const url = `${req.protocol}://${req.hostname}${req.originalUrl}`
-    const parentSpanOperationType = req.headers['trace-span-operation']
     const parentSpanContextStr = req.headers['trace-span-context']
     const span = parentSpanContextStr ?
       tracer.startSpan(OPERATION_NAME, {
@@ -36,19 +36,16 @@ function patchModuleRoot (express, tracer) {
       })
       : tracer.startSpan(OPERATION_NAME)
 
+    cls.assign({
+      currentSpan: span,
+      [OPERATION_NAME]: span
+    })
+
     span.setTag(opentracing.Tags.HTTP_URL, url)
     span.setTag(opentracing.Tags.HTTP_METHOD, req.method)
 
-    cls.setContext({ span })
-
-    req._span = span
-
     if (req.connection.remoteAddress) {
       span.log({ peerRemoteAddress: req.connection.remoteAddress })
-    }
-
-    if (parentSpanOperationType) {
-      span.log({ parentSpanOperationType })
     }
 
     // end
@@ -59,7 +56,7 @@ function patchModuleRoot (express, tracer) {
       const returned = res.end(chunk, encoding)
 
       if (req.route && req.route.path) {
-        span.log({ expressRoute: req.route.path })
+        span.setTag(TAG_REQUEST_PATH, req.route.path)
       }
 
       span.setTag(opentracing.Tags.HTTP_STATUS_CODE, res.statusCode)
@@ -88,6 +85,7 @@ function unpatchModuleRoot (express) {
 }
 
 module.exports = {
+  module: 'express',
   OPERATION_NAME,
   patch: patchModuleRoot,
   unpatch: unpatchModuleRoot

@@ -25,8 +25,12 @@ const app = express()
 
 app.get('/hello', (req, res, next) => {
   http
-    .get('http://localhost:3000/hello', () => {
-      console.log('success')
+    .get('http://localhost:3000/site/risingstack', (getRes) => {
+      if (getRes.statusCode > 399) {
+        res.statusCode = getRes.statusCode
+        res.json({ status: 'upstream error' })
+        return
+      }
 
       res.send('Hello World!')
     })
