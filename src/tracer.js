@@ -7,13 +7,24 @@ const hook = require('require-in-the-middle')
 const instrumentations = require('./instrumentation')
 
 class Tracer {
-  constructor ({ serviceName, tags = {}, samplesPerSecond = 1 }) {
-    const sender = new UDPSender()
-    const reporter = new jaeger.RemoteReporter(sender)
-    const sampler = new jaeger.RateLimitingSampler(samplesPerSecond)
+  constructor ({
+    serviceName,
+    tags = {},
+    maxSamplesPerSecond = 10,
+    sender = {},
+    logger = undefined
+  }) {
+    const senderOptions = _.defaults(sender, {
+      host: 'localhost',
+      port: 6832,
+      maxPacketSize: 65000
+    })
+    const udpSender = new UDPSender(senderOptions)
+    const reporter = new jaeger.RemoteReporter(udpSender)
+    const sampler = new jaeger.RateLimitingSampler(maxSamplesPerSecond)
 
     this._tracer = new jaeger.Tracer(serviceName, reporter, sampler, {
-      logger: console,
+      logger,
       tags
     })
 

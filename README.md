@@ -2,6 +2,8 @@
 
 Out of the box distributed tracing for Node.js applications.
 
+**WARNING: do not use in production yet**
+
 ## Technologies
 
 - [async_hooks](https://github.com/nodejs/node/blob/master/doc/api/async_hooks.md)
@@ -45,13 +47,37 @@ node example/server2.js
 
 ![Jaeger Node.js tracing](https://cloud.githubusercontent.com/assets/1764512/26815965/989ffa00-4a8f-11e7-888d-4e3bb380f2ad.png)
 
+## API
+
+### new Tracer(options)
+
+Create a new Tracer and instrument modules.
+
+- `options.serviceName`: Name of your service
+  - **required**
+  - example: `'my-service-1'`
+- `options.tags`: Meta tags
+  - *optional*
+  - example: `{ gitHash: 'foobar' }`
+- `options.maxSamplesPerSecond`: maximum number of samples per second
+  - *optional*
+  - default: `10`
+- `options.sender`: sender configuration *(Your Jaeger backend)*
+  - *optional*
+  - default: `{ host: 'localhost', port: 6832, maxPacketSize: 65000 }`
+
 ## Instrumentations
 
 - [http](https://nodejs.org/api/http.html)
 - [express](https://expressjs.com/)
 
+## Known issues
+
+- `EMSGSIZE` can be reached easily: [related issue](https://github.com/uber/jaeger-client-node/issues/124)
+
 ## TODO
 
-- database instrumentation
+- database instrumentation: MongoDB, PG, MySQL, Redis etc.
+- messaging broker instrumentation: RabbitMQ, Kafka etc.
 - test coverage
 - multiple sampling algorithms
