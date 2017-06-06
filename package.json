@@ -1,6 +1,6 @@
 {
   "name": "@risingstack/jaeger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Out of the box OpenTracing instrumentation for Node.js and Jaeger",
   "main": "index.js",
   "scripts": {
