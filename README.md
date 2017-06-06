@@ -17,6 +17,10 @@ Out of the box distributed tracing for Node.js applications.
 
 ## Getting started
 
+```sh
+npm install @risingstack/jaeger
+```
+
 ```js
 // must be in the first two lines of your application
 const Tracer = require('@risingstack/jaeger')
