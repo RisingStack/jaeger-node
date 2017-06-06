@@ -49,7 +49,7 @@ function patchHttp (http, tracer) {
         return request.apply(this, [options, callback])
       }
 
-      const span = cls.startSpan(tracer, OPERATION_NAME)
+      const span = cls.startChildSpan(tracer, OPERATION_NAME)
 
       options = _.isString(options) ? url.parse(options) : _.merge({}, options)
       options.headers = options.headers || {}

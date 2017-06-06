@@ -1,11 +1,13 @@
 'use strict'
 
-const expressInstrumentation = require('./express')
-const expressErrorInstrumentation = require('./expressError')
-const httpClientInstrumentation = require('./httpClient')
+const epxress = require('./express')
+const expressError = require('./expressError')
+const httpClient = require('./httpClient')
+const mongodbCore = require('./mongodbCore')
 
 module.exports = [
-  expressInstrumentation,
-  expressErrorInstrumentation,
-  httpClientInstrumentation
+  epxress,
+  expressError,
+  httpClient,
+  mongodbCore
 ]

@@ -44,6 +44,8 @@ docker run -d -p5775:5775/udp -p6831:6831/udp -p6832:6832/udp -p5778:5778 -p1668
 
 ## Example
 
+The example require a running MongoDB.  
+
 ```sh
 node example/server1.js
 node example/server2.js
@@ -74,6 +76,7 @@ Create a new Tracer and instrument modules.
 
 - [http](https://nodejs.org/api/http.html)
 - [express](https://expressjs.com/)
+- [MongoDB](https://www.npmjs.com/package/mongodb-core)
 
 ## Known issues
 
@@ -81,7 +84,7 @@ Create a new Tracer and instrument modules.
 
 ## TODO
 
-- database instrumentation: MongoDB, PG, MySQL, Redis etc.
+- more database instrumentation: PG, MySQL, Redis etc.
 - messaging broker instrumentation: RabbitMQ, Kafka etc.
 - test coverage
 - multiple sampling algorithms

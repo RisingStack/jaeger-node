@@ -30,11 +30,11 @@ class Tracer {
 
     const instrumentedModules = _.uniq(instrumentations.map((instrumentation) => instrumentation.module))
 
-    hook(instrumentedModules, (moduleExports, moduleName) => {
+    hook(instrumentedModules, (moduleExports, moduleName, moduleBaseDir) => {
       instrumentations
         .filter((instrumentation) => instrumentation.module === moduleName)
         .forEach((instrumentation) => {
-          instrumentation.patch(moduleExports, this._tracer)
+          instrumentation.patch(moduleExports, this._tracer, moduleBaseDir)
         })
 
       return moduleExports

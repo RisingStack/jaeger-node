@@ -30,16 +30,11 @@ function patchModuleRoot (express, tracer) {
     // start
     const url = `${req.protocol}://${req.hostname}${req.originalUrl}`
     const parentSpanContextStr = req.headers['trace-span-context']
-    const span = parentSpanContextStr ?
-      tracer.startSpan(OPERATION_NAME, {
-        childOf: SpanContext.fromString(parentSpanContextStr)
-      })
-      : tracer.startSpan(OPERATION_NAME)
+    const parentSpanContext = parentSpanContextStr
+      ? SpanContext.fromString(parentSpanContextStr)
+      : undefined
 
-    cls.assign({
-      currentSpan: span,
-      [OPERATION_NAME]: span
-    })
+    const span = cls.startRootSpan(tracer, OPERATION_NAME, parentSpanContext)
 
     span.setTag(opentracing.Tags.HTTP_URL, url)
     span.setTag(opentracing.Tags.HTTP_METHOD, req.method)

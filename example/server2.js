@@ -11,13 +11,21 @@ const tracer = new Tracer({
 })
 const express = require('express')
 const request = require('request-promise-native')
+const monk = require('monk')
+
+const db = monk('localhost/mydb')
+const sites = db.get('sites')
 
 const port = process.env.PORT || 3000
 
 const app = express()
 
+sites.createIndex('name')
+
 app.get('/site/:id', async (req, res, next) => {
-  await request('https://risingstack.com')
+  await sites.insert({ name: 'risingstack', url: 'https://risingstack.com' })
+  const site = await sites.findOne({ name: 'risingstack' })
+  await request(site.url)
   next(new Error('My Error'))
 })
 
