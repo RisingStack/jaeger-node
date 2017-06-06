@@ -51,7 +51,7 @@ node example/server1.js
 node example/server2.js
 ```
 
-![Jaeger Node.js tracing](https://cloud.githubusercontent.com/assets/1764512/26815965/989ffa00-4a8f-11e7-888d-4e3bb380f2ad.png)
+![Jaeger Node.js tracing](https://user-images.githubusercontent.com/1764512/26843812-c3198758-4af1-11e7-8aa3-1da55d9e58b6.png)
 
 ## API
 
