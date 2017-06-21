@@ -78,6 +78,7 @@ Create a new Tracer and instrument modules.
 - [http](https://nodejs.org/api/http.html)
 - [express](https://expressjs.com/)
 - [MongoDB](https://www.npmjs.com/package/mongodb-core)
+- [PostgreSQL](https://www.npmjs.com/package/pg)
 
 ## Known issues
 
@@ -85,7 +86,7 @@ Create a new Tracer and instrument modules.
 
 ## TODO
 
-- more database instrumentation: PG, MySQL, Redis etc.
+- more database instrumentation: MySQL, Redis etc.
 - messaging broker instrumentation: RabbitMQ, Kafka etc.
 - test coverage
 - multiple sampling algorithms

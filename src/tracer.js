@@ -1,5 +1,7 @@
 'use strict'
 
+const path = require('path')
+const semver = require('semver')
 const _ = require('lodash')
 const jaeger = require('jaeger-client')
 const UDPSender = require('jaeger-client/dist/src/reporters/udp_sender').default
@@ -31,8 +33,25 @@ class Tracer {
     const instrumentedModules = _.uniq(instrumentations.map((instrumentation) => instrumentation.module))
 
     hook(instrumentedModules, (moduleExports, moduleName, moduleBaseDir) => {
+      let moduleVersion
+
+      if (moduleBaseDir) {
+        const packageJSON = path.join(moduleBaseDir, 'package.json')
+        // eslint-disable-next-line
+        moduleVersion = require(packageJSON).version
+      }
+
       instrumentations
         .filter((instrumentation) => instrumentation.module === moduleName)
+        .filter((instrumentation) => {
+          if (_.isUndefined(moduleVersion) || !_.isArray(instrumentation.supportedVersions)) {
+            return true
+          }
+
+          return instrumentation.supportedVersions.some((supportedVersion) =>
+            semver.satisfies(moduleVersion, supportedVersion)
+          )
+        })
         .forEach((instrumentation) => {
           instrumentation.patch(moduleExports, this._tracer, moduleBaseDir)
         })

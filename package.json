@@ -41,8 +41,10 @@
     "eslint-plugin-import": "2.3.0",
     "eslint-plugin-promise": "3.5.0",
     "express": "4.15.3",
+    "knex": "0.13.0",
     "monk": "6.0.0",
     "npm-run-all": "4.0.2",
+    "pg": "6.3.1",
     "request": "2.81.0",
     "request-promise-native": "1.0.4"
   },

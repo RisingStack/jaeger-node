@@ -88,11 +88,13 @@ function patch (express, tracer) {
   )
 }
 
-// TODO
-function unpatch () {}
+function unpatch (express) {
+  shimmer.unwrap(express.Router, 'use')
+}
 
 module.exports = {
   module: 'express',
+  supportedVersions: ['4.x'],
   OPERATION_NAME,
   patch,
   unpatch

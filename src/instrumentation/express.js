@@ -46,9 +46,9 @@ function patchModuleRoot (express, tracer) {
     // end
     const originalEnd = res.end
 
-    res.end = (chunk, encoding) => {
+    res.end = function (...args) {
       res.end = originalEnd
-      const returned = res.end(chunk, encoding)
+      const returned = res.end.call(this, ...args)
 
       if (req.route && req.route.path) {
         span.setTag(TAG_REQUEST_PATH, req.route.path)
@@ -81,6 +81,7 @@ function unpatchModuleRoot (express) {
 
 module.exports = {
   module: 'express',
+  supportedVersions: ['4.x'],
   OPERATION_NAME,
   patch: patchModuleRoot,
   unpatch: unpatchModuleRoot

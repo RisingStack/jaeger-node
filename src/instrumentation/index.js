@@ -1,13 +1,15 @@
 'use strict'
 
-const epxress = require('./express')
+const express = require('./express')
 const expressError = require('./expressError')
 const httpClient = require('./httpClient')
 const mongodbCore = require('./mongodbCore')
+const pg = require('./pg')
 
 module.exports = [
-  epxress,
+  express,
   expressError,
   httpClient,
-  mongodbCore
+  mongodbCore,
+  pg
 ]
