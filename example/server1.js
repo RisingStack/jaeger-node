@@ -13,13 +13,13 @@ const tracer = new Tracer({
 const http = require('http')
 const express = require('express')
 
-const port = process.env.PORT || 3001
+const port = 3000
 
 const app = express()
 
-app.get('/hello', (req, res, next) => {
+app.get('/', (req, res, next) => {
   http
-    .get('http://localhost:3000/site/risingstack', (getRes) => {
+    .get('http://localhost:3001/site/risingstack', (getRes) => {
       if (getRes.statusCode > 399) {
         res.statusCode = getRes.statusCode
         res.json({ status: 'upstream error' })
@@ -39,5 +39,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
   // eslint-disable-next-line
-  console.log(`Example app listening on port ${port}!`)
+  console.log(`Example server 1 listening on port ${port}!`)
 })

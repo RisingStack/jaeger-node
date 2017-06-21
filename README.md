@@ -47,8 +47,9 @@ docker run -d -p5775:5775/udp -p6831:6831/udp -p6832:6832/udp -p5778:5778 -p1668
 The example require a running MongoDB.  
 
 ```sh
-node example/server1.js
-node example/server2.js
+npm run example
+curl http://localhost:3000
+open http://localhost:16686
 ```
 
 ![Jaeger Node.js tracing](https://user-images.githubusercontent.com/1764512/26843812-c3198758-4af1-11e7-8aa3-1da55d9e58b6.png)

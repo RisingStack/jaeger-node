@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "main": "src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "example": "npm-run-all --parallel example-server1 example-server2",
+    "example-server1": "node example/server1",
+    "example-server2": "node example/server2"
   },
   "author": "RisingStack, Inc.",
   "license": "MIT",
@@ -24,7 +27,7 @@
   ],
   "dependencies": {
     "asyncctx": "1.0.0",
-    "jaeger-client": "3.5.2",
+    "jaeger-client": "3.5.3",
     "lodash": "4.17.4",
     "methods": "1.1.2",
     "opentracing": "0.14.1",
@@ -33,12 +36,13 @@
     "shimmer": "1.1.0"
   },
   "devDependencies": {
-    "eslint": "3.19.0",
+    "eslint": "4.0.0",
     "eslint-config-airbnb-base": "11.2.0",
-    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-import": "2.3.0",
     "eslint-plugin-promise": "3.5.0",
     "express": "4.15.3",
     "monk": "6.0.0",
+    "npm-run-all": "4.0.2",
     "request": "2.81.0",
     "request-promise-native": "1.0.4"
   },

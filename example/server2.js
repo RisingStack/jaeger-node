@@ -13,11 +13,14 @@ const express = require('express')
 const request = require('request-promise-native')
 const monk = require('monk')
 
-const db = monk('localhost/mydb')
+const db = monk('localhost/mydb', (err) => {
+  if (err) {
+    // eslint-disable-next-line
+    console.error(err)
+  }
+})
 const sites = db.get('sites')
-
-const port = process.env.PORT || 3000
-
+const port = 3001
 const app = express()
 
 sites.createIndex('name')
@@ -35,5 +38,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
   // eslint-disable-next-line
-  console.log(`Example app listening on port ${port}!`)
+  console.log(`Example server 2 listening on port ${port}!`)
 })
