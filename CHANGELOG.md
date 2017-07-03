@@ -1,3 +1,12 @@
+<a name="1.3.0"></a>
+# 1.3.0 (2017-07-03)
+
+* chore(package): update dependencies ([87b23bc](https://github.com/RisingStack/jaeger-node/commit/87b23bc))
+* chore(package): update package lock ([0c29447](https://github.com/RisingStack/jaeger-node/commit/0c29447))
+* feat(span): use inject and extract for span context ([dd3bd14](https://github.com/RisingStack/jaeger-node/commit/dd3bd14))
+
+
+
 <a name="1.2.0"></a>
 # 1.2.0 (2017-06-21)
 
