@@ -29,11 +29,7 @@ function patchModuleRoot (express, tracer) {
   function middleware (req, res, next) {
     // start
     const url = `${req.protocol}://${req.hostname}${req.originalUrl}`
-    const parentSpanContextStr = req.headers['trace-span-context']
-    const parentSpanContext = parentSpanContextStr
-      ? SpanContext.fromString(parentSpanContextStr)
-      : undefined
-
+    const parentSpanContext = tracer.extract(opentracing.FORMAT_HTTP_HEADERS, req.headers)
     const span = cls.startRootSpan(tracer, OPERATION_NAME, parentSpanContext)
 
     span.setTag(opentracing.Tags.HTTP_URL, url)

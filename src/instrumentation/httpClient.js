@@ -54,7 +54,7 @@ function patchHttp (http, tracer) {
       options = _.isString(options) ? url.parse(options) : _.merge({}, options)
       options.headers = options.headers || {}
 
-      options.headers['trace-span-context'] = span.context().toString()
+      tracer.inject(span, opentracing.FORMAT_HTTP_HEADERS, options.headers)
 
       const uri = extractUrl(options)
       span.setTag(opentracing.Tags.HTTP_URL, uri)
