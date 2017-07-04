@@ -63,7 +63,7 @@ Create a new Tracer and instrument modules.
 - `args.sampler`: Jaeger sampler, see [sampler docs](https://github.com/uber/jaeger-client-node/tree/master/src/samplers)
   - *optional*
   - default: `new jaeger.RateLimitingSampler(1)`
-- `args.reporter`: Jaeger sampler, see [reporter docs](https://github.com/uber/jaeger-client-node/tree/master/src/reporters)
+- `args.reporter`: Jaeger reporter, see [reporter docs](https://github.com/uber/jaeger-client-node/tree/master/src/reporters)
   - *optional*
   - default: `new jaeger.RemoteReporter(new UDPSender())`
 - `args.options`: Jaeger options, see [docs](https://github.com/uber/jaeger-client-node#initialization)
