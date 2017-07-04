@@ -1,8 +1,8 @@
 # jaeger-node
 
-Out of the box distributed tracing for Node.js applications.
+Out of the box distributed tracing for [Node.js](https://nodejs.org) applications.
 
-**WARNING: experimental ;ibrary, do not use in production yet**
+**WARNING: experimental library, do not use in production yet**
 
 ## Technologies
 
