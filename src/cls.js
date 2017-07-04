@@ -5,23 +5,39 @@ const { ContinuationLocalStorage } = require('asyncctx')
 const cls = new ContinuationLocalStorage()
 cls.setRootContext({})
 
-function assign (context) {
+/**
+* @function assign
+* @return {SpanContext} spanContext
+*/
+function assign (spanContext) {
   const currentContext = cls.getContext() || {}
-  const newContext = Object.assign(currentContext, context)
+  const newContext = Object.assign(currentContext, spanContext)
+
   cls.setContext(newContext)
 }
 
+/**
+* @function getRootSpan
+* @return {Span}
+*/
 function getRootSpan () {
   const context = cls.getContext() || cls.getRootContext()
   return context.currentSpan
 }
 
-function startRootSpan (tracer, operationName, spanContext) {
-  const span = spanContext ?
-    tracer.startSpan(operationName, {
-      childOf: spanContext
-    })
-    : tracer.startSpan(operationName)
+/**
+* @function startRootSpan
+* @param {Tracer} tracer
+* @param {String} operationName
+* @param {SpanContext} [parentSpanContext]
+* @return {Span}
+*/
+function startRootSpan (tracer, operationName, parentSpanContext) {
+  const span = tracer.startSpan(operationName, {
+    childOf: parentSpanContext && parentSpanContext.isValid
+      ? parentSpanContext
+      : undefined
+  })
 
   cls.assign({
     currentSpan: span
@@ -30,14 +46,21 @@ function startRootSpan (tracer, operationName, spanContext) {
   return span
 }
 
+/**
+* @function startChildSpan
+* @param {Tracer} tracer
+* @param {String} operationName
+* @return {Span}
+*/
 function startChildSpan (tracer, operationName) {
-  const context = cls.getContext() || cls.getRootContext()
+  const parentSpan = getRootSpan()
+  const parentSpanContext = parentSpan ? parentSpan.context() : undefined
 
-  const span = context.currentSpan ?
-    tracer.startSpan(operationName, {
-      childOf: context.currentSpan.context()
-    })
-    : tracer.startSpan(operationName)
+  const span = tracer.startSpan(operationName, {
+    childOf: parentSpanContext && parentSpanContext.isValid
+      ? parentSpanContext
+      : undefined
+  })
 
   return span
 }
