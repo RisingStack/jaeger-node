@@ -1,3 +1,15 @@
+<a name="2.1.0"></a>
+# 2.1.0 (2017-07-04)
+
+* feat(opentracing): add RPC kind ([8eba518](https://github.com/RisingStack/jaeger-node/commit/8eba518))
+* fix(cls): validate span context ([9f94cdf](https://github.com/RisingStack/jaeger-node/commit/9f94cdf))
+* fix(jaeger): do not use built=in opentracing ([cfcc137](https://github.com/RisingStack/jaeger-node/commit/cfcc137))
+* docs(readme): fix example ([e574dc2](https://github.com/RisingStack/jaeger-node/commit/e574dc2))
+* docs(readme): fix reporter docs ([663b2aa](https://github.com/RisingStack/jaeger-node/commit/663b2aa))
+* docs(readme): fix warning typo ([a57b853](https://github.com/RisingStack/jaeger-node/commit/a57b853))
+
+
+
 <a name="2.0.0"></a>
 # 2.0.0 (2017-07-04)
 
