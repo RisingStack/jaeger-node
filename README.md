@@ -2,7 +2,7 @@
 
 Out of the box distributed tracing for Node.js applications.
 
-**WARNING: do not use in production yet**
+**WARNING: experimental ;ibrary, do not use in production yet**
 
 ## Technologies
 
@@ -25,10 +25,7 @@ npm install @risingstack/jaeger
 // must be in the first two lines of your application
 const Tracer = require('@risingstack/jaeger')
 const tracer = new Tracer({
-  serviceName: 'my-server-2',
-  tags: {
-    gitTag: 'foobar'
-  }
+  serviceName: 'my-server-2'
 })
 
 // rest of your code
