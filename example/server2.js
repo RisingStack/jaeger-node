@@ -5,8 +5,10 @@ const Tracer = require('../src')
 // eslint-disable-next-line
 const tracer = new Tracer({
   serviceName: 'my-server-2',
-  tags: {
-    gitTag: 'foobar'
+  options: {
+    tags: {
+      gitTag: 'bar'
+    }
   }
 })
 const express = require('express')

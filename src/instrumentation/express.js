@@ -1,8 +1,7 @@
 'use strict'
 
-const opentracing = require('opentracing')
 const shimmer = require('shimmer')
-const SpanContext = require('jaeger-client').SpanContext
+const { opentracing } = require('jaeger-client')
 const methods = require('methods').concat('use', 'route', 'param', 'all')
 const cls = require('../cls')
 const { isExpressV4 } = require('./util')

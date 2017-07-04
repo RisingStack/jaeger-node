@@ -1,7 +1,7 @@
 'use strict'
 
 const url = require('url')
-const opentracing = require('opentracing')
+const { opentracing } = require('jaeger-client')
 const shimmer = require('shimmer')
 const _ = require('lodash')
 // eslint-disable-next-line

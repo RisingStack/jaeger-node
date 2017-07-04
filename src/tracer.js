@@ -11,36 +11,30 @@ const instrumentations = require('./instrumentation')
 class Tracer {
   constructor ({
     serviceName,
-    tags = {},
-    maxSamplesPerSecond = 1,
-    sender = {},
-    logger = undefined
+    sampler = new jaeger.RateLimitingSampler(1),
+    reporter = new jaeger.RemoteReporter(new UDPSender()),
+    options = {}
   }) {
-    const senderOptions = _.defaults(sender, {
-      host: 'localhost',
-      port: 6832,
-      maxPacketSize: 65000
-    })
-    const udpSender = new UDPSender(senderOptions)
-    const reporter = new jaeger.RemoteReporter(udpSender)
-    const sampler = new jaeger.RateLimitingSampler(maxSamplesPerSecond)
+    if (!serviceName) {
+      throw new Error('serviceName is required')
+    }
 
-    this._tracer = new jaeger.Tracer(serviceName, reporter, sampler, {
-      logger,
-      tags
-    })
+    this._tracer = new jaeger.Tracer(serviceName, reporter, sampler, options)
 
     const instrumentedModules = _.uniq(instrumentations.map((instrumentation) => instrumentation.module))
 
+    // Instrunent modules: hook require
     hook(instrumentedModules, (moduleExports, moduleName, moduleBaseDir) => {
       let moduleVersion
 
+      // Look for version in package.json
       if (moduleBaseDir) {
         const packageJSON = path.join(moduleBaseDir, 'package.json')
         // eslint-disable-next-line
         moduleVersion = require(packageJSON).version
       }
 
+      // Apply instrumentations
       instrumentations
         .filter((instrumentation) => instrumentation.module === moduleName)
         .filter((instrumentation) => {

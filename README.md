@@ -56,22 +56,23 @@ open http://localhost:16686
 
 ## API
 
-### new Tracer(options)
+### new Tracer(args)
 
 Create a new Tracer and instrument modules.
 
-- `options.serviceName`: Name of your service
+- `args.serviceName`: Name of your service
   - **required**
   - example: `'my-service-1'`
-- `options.tags`: Meta tags
+- `args.sampler`: Jaeger sampler, see [sampler docs](https://github.com/uber/jaeger-client-node/tree/master/src/samplers)
   - *optional*
-  - example: `{ gitHash: 'foobar' }`
-- `options.maxSamplesPerSecond`: maximum number of samples per second
+  - default: `new jaeger.RateLimitingSampler(1)`
+- `args.reporter`: Jaeger sampler, see [reporter docs](https://github.com/uber/jaeger-client-node/tree/master/src/reporters)
   - *optional*
-  - default: `1`
-- `options.sender`: sender configuration *(Your Jaeger backend)*
+  - default: `new jaeger.RemoteReporter(new UDPSender())`
+- `args.options`: Jaeger options, see [docs](https://github.com/uber/jaeger-client-node#initialization)
   - *optional*
-  - default: `{ host: 'localhost', port: 6832, maxPacketSize: 65000 }`
+  - example: `{ tags: { gitHash: 'foobar' } }`
+
 
 ## Instrumentations
 
@@ -89,4 +90,3 @@ Create a new Tracer and instrument modules.
 - more database instrumentation: MySQL, Redis etc.
 - messaging broker instrumentation: RabbitMQ, Kafka etc.
 - test coverage
-- multiple sampling algorithms

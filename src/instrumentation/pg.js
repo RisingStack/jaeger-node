@@ -1,6 +1,6 @@
 'use strict'
 
-const opentracing = require('opentracing')
+const { opentracing } = require('jaeger-client')
 const shimmer = require('shimmer')
 const cls = require('../cls')
 
