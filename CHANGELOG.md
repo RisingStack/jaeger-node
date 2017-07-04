@@ -1,3 +1,14 @@
+<a name="2.0.0"></a>
+# 2.0.0 (2017-07-04)
+
+* feat(tracer): jaeger-client interface ([f153326](https://github.com/RisingStack/jaeger-node/commit/f153326))
+
+
+### BREAKING CHANGE
+
+* tracer constructor is now follows jaeger-client
+
+
 <a name="1.3.0"></a>
 # 1.3.0 (2017-07-03)
 
