@@ -1,7 +1,7 @@
 'use strict'
 
 const shimmer = require('shimmer')
-const { opentracing } = require('jaeger-client')
+const opentracing = require('opentracing')
 const cls = require('../cls')
 const { isExpressV4 } = require('./util')
 
