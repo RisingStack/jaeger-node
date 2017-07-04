@@ -33,6 +33,7 @@ function patchModuleRoot (express, tracer) {
 
     span.setTag(opentracing.Tags.HTTP_URL, url)
     span.setTag(opentracing.Tags.HTTP_METHOD, req.method)
+    span.setTag(opentracing.Tags.SPAN_KIND_RPC_SERVER, true)
 
     if (req.connection.remoteAddress) {
       span.log({ peerRemoteAddress: req.connection.remoteAddress })

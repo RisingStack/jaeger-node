@@ -59,6 +59,7 @@ function patchHttp (http, tracer) {
       const uri = extractUrl(options)
       span.setTag(opentracing.Tags.HTTP_URL, uri)
       span.setTag(opentracing.Tags.HTTP_METHOD, options.method || 'GET')
+      span.setTag(opentracing.Tags.SPAN_KIND_RPC_CLIENT, true)
 
       const req = request.call(this, options, (res) => {
         const headers = _.omitBy(
