@@ -8,6 +8,9 @@ const UDPSender = require('jaeger-client/dist/src/reporters/udp_sender').default
 const hook = require('require-in-the-middle')
 const instrumentations = require('./instrumentation')
 
+/**
+* @class Tracer
+*/
 class Tracer {
   constructor ({
     serviceName,
@@ -20,7 +23,24 @@ class Tracer {
     }
 
     this._tracer = new jaeger.Tracer(serviceName, reporter, sampler, options)
+    this._instrument()
+  }
 
+  /**
+  * Applies unpatch fn of instrumentations
+  * @method instrumentUnpatch
+  */
+  instrumentUnpatch () {
+    this._instrument('unpatch')
+  }
+
+  /**
+  * Applies specified fn of instrumentations
+  * @method instrumentUnpatch
+  * @private
+  * @param {String} fn - "patch" or "unpatch"
+  */
+  _instrument (fn = 'patch') {
     const instrumentedModules = _.uniq(instrumentations.map((instrumentation) => instrumentation.module))
 
     // Instrunent modules: hook require
@@ -47,7 +67,9 @@ class Tracer {
           )
         })
         .forEach((instrumentation) => {
-          instrumentation.patch(moduleExports, this._tracer, moduleBaseDir)
+          if (_.isFunction(instrumentation[fn])) {
+            instrumentation[fn](moduleExports, this._tracer, moduleBaseDir)
+          }
         })
 
       return moduleExports

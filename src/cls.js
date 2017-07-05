@@ -1,9 +1,12 @@
 'use strict'
 
 const { ContinuationLocalStorage } = require('asyncctx')
+const _ = require('lodash')
 
 const cls = new ContinuationLocalStorage()
-cls.setRootContext({})
+const DEFAULT_CONTEXT = {}
+
+cls.setRootContext(_.clone(DEFAULT_CONTEXT))
 
 /**
 * @function assign
@@ -66,6 +69,7 @@ function startChildSpan (tracer, operationName) {
 }
 
 module.exports = Object.assign(cls, {
+  DEFAULT_CONTEXT,
   assign,
   getRootSpan,
   startRootSpan,

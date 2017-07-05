@@ -85,5 +85,5 @@ Create a new Tracer and instrument modules.
 ## TODO
 
 - more database instrumentation: MySQL, Redis etc.
-- messaging broker instrumentation: RabbitMQ, Kafka etc.
-- test coverage
+- messaging instrumentation: GRPC, RabbitMQ, Kafka etc.
+- improve test coverage

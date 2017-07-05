@@ -9,7 +9,7 @@ const { isExpressV4 } = require('./util')
 const OPERATION_NAME = 'http_server'
 const TAG_REQUEST_PATH = 'request_path'
 
-function patchModuleRoot (express, tracer) {
+function patch (express, tracer) {
   // support only express@4
   if (!isExpressV4(express)) {
     return
@@ -69,7 +69,7 @@ function patchModuleRoot (express, tracer) {
   })
 }
 
-function unpatchModuleRoot (express) {
+function unpatch (express) {
   methods.forEach((method) => {
     shimmer.unwrap(express.application, method)
   })
@@ -79,6 +79,6 @@ module.exports = {
   module: 'express',
   supportedVersions: ['4.x'],
   OPERATION_NAME,
-  patch: patchModuleRoot,
-  unpatch: unpatchModuleRoot
+  patch,
+  unpatch
 }
