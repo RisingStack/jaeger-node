@@ -1,5 +1,7 @@
 # jaeger-node
 
+[![Build Status](https://travis-ci.org/RisingStack/jaeger-node.svg?branch=master)](https://travis-ci.org/RisingStack/jaeger-node)  
+
 Out of the box distributed tracing for [Node.js](https://nodejs.org) applications.
 
 **WARNING: experimental library, do not use in production yet**
