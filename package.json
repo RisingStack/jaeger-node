@@ -51,7 +51,8 @@
     "request": "2.81.0",
     "request-promise-native": "1.0.4",
     "sinon": "2.3.6",
-    "sinon-chai": "2.11.0"
+    "sinon-chai": "2.11.0",
+    "super-request": "1.2.0"
   },
   "engines": {
     "node": ">=8.0.0"

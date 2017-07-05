@@ -78,6 +78,7 @@ function unpatch (express) {
 module.exports = {
   module: 'express',
   supportedVersions: ['4.x'],
+  TAG_REQUEST_PATH,
   OPERATION_NAME,
   patch,
   unpatch
