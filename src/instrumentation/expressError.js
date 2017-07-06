@@ -3,16 +3,10 @@
 const shimmer = require('shimmer')
 const opentracing = require('opentracing')
 const cls = require('../cls')
-const { isExpressV4 } = require('./util')
 
 const OPERATION_NAME = 'express_error_handler'
 
 function patch (express, tracer) {
-  // support only express@4
-  if (!isExpressV4(express)) {
-    return
-  }
-
   let errorHandlerLayer
 
   function expressErrorHandler (err, req, res, next) {

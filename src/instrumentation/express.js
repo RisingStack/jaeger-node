@@ -4,17 +4,11 @@ const opentracing = require('opentracing')
 const shimmer = require('shimmer')
 const methods = require('methods').concat('use', 'route', 'param', 'all')
 const cls = require('../cls')
-const { isExpressV4 } = require('./util')
 
 const OPERATION_NAME = 'http_server'
 const TAG_REQUEST_PATH = 'request_path'
 
 function patch (express, tracer) {
-  // support only express@4
-  if (!isExpressV4(express)) {
-    return
-  }
-
   function applicationActionWrap (method) {
     return function expressActionTrace (...args) {
       if (!this._jaeger_trace_patched && !this._router) {
