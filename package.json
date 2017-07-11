@@ -6,6 +6,7 @@
   "scripts": {
     "main": "src/index.js",
     "test": "mocha test/setup.js 'src/**/*.spec.js'",
+    "coverage": "nyc --reporter=html --reporter=text npm run test",
     "lint": "eslint test src",
     "example": "npm-run-all --parallel example-server1 example-server2",
     "example-server1": "node example/server1",
@@ -48,6 +49,7 @@
     "monk": "6.0.1",
     "nock": "9.0.13",
     "npm-run-all": "4.0.2",
+    "nyc": "11.0.3",
     "pg": "6.4.0",
     "request": "2.81.0",
     "request-promise-native": "1.0.4",
