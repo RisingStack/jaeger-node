@@ -67,7 +67,7 @@ function patchHttp (http, tracer) {
           _.isUndefined
         )
 
-        if (res.statusCode >= 400) {
+        if (res.statusCode > 399) {
           span.setTag(opentracing.Tags.ERROR, true)
         }
 

@@ -4,6 +4,7 @@ const { expect } = require('chai')
 const jaeger = require('jaeger-client')
 const Tracer = require('./tracer')
 const instrumentationExpress = require('./instrumentation/express')
+const instrumentationHTTPClient = require('./instrumentation/httpClient')
 
 describe('Tracer', () => {
   let tracer
@@ -27,6 +28,7 @@ describe('Tracer', () => {
 
     it('should hook require and apply instrumentation', function () {
       this.sandbox.spy(instrumentationExpress, 'patch')
+      this.sandbox.spy(instrumentationHTTPClient, 'patch')
 
       tracer = new Tracer({
         serviceName: 'my-service'
@@ -34,8 +36,14 @@ describe('Tracer', () => {
 
       // eslint-disable-next-line
       const express = require('express')
+      // eslint-disable-next-line
+      const http = require('http')
+      // eslint-disable-next-line
+      const https = require('https')
 
       expect(instrumentationExpress.patch).to.be.calledWith(express, tracer._tracer)
+      expect(instrumentationHTTPClient.patch).to.be.calledWith(http, tracer._tracer)
+      expect(instrumentationHTTPClient.patch).to.be.calledWith(https, tracer._tracer)
     })
 
     it('should not apply instrumentation for not supported version', function () {
