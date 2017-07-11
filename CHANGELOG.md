@@ -1,3 +1,16 @@
+<a name="2.1.1"></a>
+## 2.1.1 (2017-07-11)
+
+* chore(package): update ([c52eabc](https://github.com/RisingStack/jaeger-node/commit/c52eabc))
+* fix(instrumentation/https): add https instrumentation ([2a44c7c](https://github.com/RisingStack/jaeger-node/commit/2a44c7c))
+* test(cls,tracer): cover with tests ([70c198e](https://github.com/RisingStack/jaeger-node/commit/70c198e))
+* test(instrumentation/express): cover ([be1a4be](https://github.com/RisingStack/jaeger-node/commit/be1a4be))
+* test(instrumentation/expressError): add tests ([8795641](https://github.com/RisingStack/jaeger-node/commit/8795641))
+* test(instrumentation/http): cover with tests ([2a9bbbc](https://github.com/RisingStack/jaeger-node/commit/2a9bbbc))
+* docs(readme): add travis badge ([ed39285](https://github.com/RisingStack/jaeger-node/commit/ed39285))
+
+
+
 <a name="2.1.0"></a>
 # 2.1.0 (2017-07-04)
 
