@@ -1,3 +1,12 @@
+<a name="2.1.2"></a>
+## 2.1.2 (2017-07-12)
+
+* fix(instrumentation/https): removed unnecessary instrumentation, https uses http in the background ([79ef8fb](https://github.com/RisingStack/jaeger-node/commit/79ef8fb))
+* test(instrumentation/https): cover with tests ([7643a8f](https://github.com/RisingStack/jaeger-node/commit/7643a8f))
+* chore(package): add coverage reporter ([d66acb1](https://github.com/RisingStack/jaeger-node/commit/d66acb1))
+
+
+
 <a name="2.1.1"></a>
 ## 2.1.1 (2017-07-11)
 
