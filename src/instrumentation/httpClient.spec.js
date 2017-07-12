@@ -1,7 +1,6 @@
 'use strict'
 
 const http = require('http')
-const https = require('https')
 const request = require('request-promise-native')
 const nock = require('nock')
 const { expect } = require('chai')
@@ -24,15 +23,10 @@ describe('instrumentation: httpClient', () => {
     this.sandbox.stub(cls, 'startChildSpan').callsFake(() => mockChildSpan)
 
     instrumentation.patch(http, tracer)
-    instrumentation.patch(https, tracer)
-
-    nock.disableNetConnect()
   })
 
   afterEach(() => {
     instrumentation.unpatch(http)
-    instrumentation.unpatch(https)
-    nock.enableNetConnect()
     nock.cleanAll()
   })
 
@@ -53,39 +47,38 @@ describe('instrumentation: httpClient', () => {
         })
     })
 
-    it('should start and finish span with https', () => {
-      nock('https://risingstack.com')
-        .get('/')
-        .reply(200)
+    it('should start and finish span with https', () =>
+      // WARNING: nock doesn't work well with https instrumentation
+      // create real request
 
-      return request('https://risingstack.com')
+      request('https://risingstack.com')
         .then(() => {
           expect(cls.startChildSpan).to.be.calledWith(tracer, instrumentation.OPERATION_NAME)
-          expect(mockChildSpan.setTag).to.have.calledWith(Tags.HTTP_URL, 'http://risingstack.com:443')
+          expect(mockChildSpan.setTag).to.have.calledWith(Tags.HTTP_URL, 'https://risingstack.com:443')
           expect(mockChildSpan.setTag).to.have.calledWith(Tags.HTTP_METHOD, 'GET')
           expect(mockChildSpan.setTag).to.have.calledWith(Tags.SPAN_KIND_RPC_CLIENT, true)
           expect(mockChildSpan.setTag).to.have.calledWith(Tags.HTTP_STATUS_CODE, 200)
           expect(mockChildSpan.finish).to.have.callCount(1)
         })
-    })
+    )
 
     it('should flag wrong status codes as error', () => {
-      nock('https://risingstack.com')
+      nock('http://risingstack.com')
         .get('/')
         .reply(400)
 
-      return request('https://risingstack.com')
+      return request('http://risingstack.com')
         .catch(() => {
           expect(mockChildSpan.setTag).to.be.calledWith(Tags.ERROR, true)
         })
     })
 
     it('should flag error', () => {
-      nock('https://risingstack.com')
+      nock('http://risingstack.com')
         .get('/')
         .replyWithError('My Error')
 
-      return request('https://risingstack.com')
+      return request('http://risingstack.com')
         .catch((err) => {
           expect(mockChildSpan.setTag).to.be.calledWith(Tags.ERROR, true)
           expect(mockChildSpan.log).to.be.calledWith({

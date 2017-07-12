@@ -23,15 +23,7 @@ function extractUrl (options) {
   })
 }
 
-function unpatchHttp (http) {
-  shimmer.unwrap(http, 'request')
-
-  if (semver.satisfies(process.version, '>=8.0.0')) {
-    shimmer.unwrap(http, 'get')
-  }
-}
-
-function patchHttp (http, tracer) {
+function patch (http, tracer) {
   shimmer.wrap(http, 'request', (request) => makeRequestTrace(request))
 
   if (semver.satisfies(process.version, '>=8.0.0')) {
@@ -99,9 +91,17 @@ function patchHttp (http, tracer) {
   }
 }
 
+function unpatch (http) {
+  shimmer.unwrap(http, 'request')
+
+  if (semver.satisfies(process.version, '>=8.0.0')) {
+    shimmer.unwrap(http, 'get')
+  }
+}
+
 module.exports = {
   module: 'http',
   OPERATION_NAME,
-  patch: patchHttp,
-  unpatch: unpatchHttp
+  patch,
+  unpatch
 }

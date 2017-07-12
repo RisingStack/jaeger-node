@@ -43,7 +43,6 @@ describe('Tracer', () => {
 
       expect(instrumentationExpress.patch).to.be.calledWith(express, tracer._tracer)
       expect(instrumentationHTTPClient.patch).to.be.calledWith(http, tracer._tracer)
-      expect(instrumentationHTTPClient.patch).to.be.calledWith(https, tracer._tracer)
     })
 
     it('should not apply instrumentation for not supported version', function () {
