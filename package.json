@@ -46,6 +46,7 @@
     "express": "4.15.4",
     "knex": "0.13.0",
     "mocha": "3.5.0",
+    "mongodb-core": "2.1.15",
     "monk": "6.0.3",
     "nock": "9.0.14",
     "npm-run-all": "4.0.2",
