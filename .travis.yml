@@ -4,10 +4,15 @@ cache:
     - node_modules
 notifications:
   email: false
+services:
+  - postgresql
 node_js:
   - 'stable'
   - '8'
+env:
+  - PG_URI=postgres://postgres:@localhost:5432/travis_ci_test
 before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
   - npm prune
 branches:
   except:

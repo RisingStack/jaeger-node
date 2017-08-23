@@ -55,6 +55,7 @@ module.exports = {
   module: 'pg',
   supportedVersions: ['6.x'],
   OPERATION_NAME,
+  DB_TYPE,
   patch,
   unpatch
 }
