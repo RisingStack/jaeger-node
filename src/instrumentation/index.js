@@ -11,5 +11,6 @@ module.exports = [
   expressError,
   httpClient,
   mongodbCore,
-  pg
+  pg,
+  redis
 ]
