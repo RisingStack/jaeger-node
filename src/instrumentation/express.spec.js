@@ -67,7 +67,7 @@ describe('instrumentation: express', () => {
       expect(cls.startRootSpan).to.be.calledWith(tracer, instrumentation.OPERATION_NAME, parentSpan.context())
     })
 
-    it('should set error tag for > 3xx statu code', async () => {
+    it('should set error tag for > 3xx statu codes', async () => {
       const app = express()
       app.get('/', (req, res) => {
         res.statusCode = 400
