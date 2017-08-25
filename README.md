@@ -80,12 +80,11 @@ Create a new Tracer and instrument modules.
 - [MongoDB](https://www.npmjs.com/package/mongodb-core)
 - [PostgreSQL](https://www.npmjs.com/package/pg)
 
-## Known issues
+## EMSGSIZE and UDP buffer limits
 
-- `EMSGSIZE` can be reached easily: [related issue](https://github.com/uber/jaeger-client-node/issues/124)
+Read more about it in the [Client Libraries](https://github.com/uber/jaeger/blob/master/docs/client_libraries.md#emsgsize-and-udp-buffer-limits) documentation.
 
-## TODO
+## Feature ideas
 
-- more database instrumentation: MySQL, Redis etc.
-- messaging instrumentation: GRPC, RabbitMQ, Kafka etc.
-- improve test coverage
+- More database instrumentation: MySQL, Redis etc.
+- More messaging layer instrumentation: HTTP/2, GRPC, RabbitMQ, Kafka etc.
