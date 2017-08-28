@@ -77,6 +77,7 @@ Create a new Tracer and instrument modules.
 
 - [http, https](https://nodejs.org/api/http.html)
 - [express](https://expressjs.com/)
+- [restify](http://restify.com/)
 - [MongoDB](https://www.npmjs.com/package/mongodb-core)
 - [PostgreSQL](https://www.npmjs.com/package/pg)
 - [MySQL](https://www.npmjs.com/package/mysql)

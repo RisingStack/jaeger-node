@@ -6,6 +6,7 @@ const httpClient = require('./httpClient')
 const mongodbCore = require('./mongodbCore')
 const mysql = require('./mysql')
 const pg = require('./pg')
+const restify = require('./restify')
 
 module.exports = [
   express,
@@ -13,5 +14,6 @@ module.exports = [
   httpClient,
   mongodbCore,
   mysql,
-  pg
+  pg,
+  restify
 ]
