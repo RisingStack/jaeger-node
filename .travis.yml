@@ -20,7 +20,7 @@ before_script:
   - psql -c 'create database test_jaeger;' -U postgres
   # MongoDB does not immediately accept connections
   - sleep 15
-  - mongo mydb_test --eval 'db.addUser("travis", "test_jaeger");'
+  - mongo mydb_test --eval 'db.createUser("travis", "test_jaeger");'
   - npm prune
 branches:
   except:
