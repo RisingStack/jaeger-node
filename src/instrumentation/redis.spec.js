@@ -31,7 +31,7 @@ describe('instrumentation: redis', () => {
 
   describe('#patch', () => {
     it('should start and finish span', async () => {
-      const result = db.set("string key", "string val",(err, replies) {expect(replies).to.be.eql("OK")})
+      const result = db.set("string key", "string val",function(err, replies) {expect(replies).to.be.eql("OK")})
 
       expect(cls.startChildSpan).to.be.calledWith(tracer, `${instrumentation.OPERATION_NAME}_query set`)
       expect(mockChildSpan.setTag).to.have.calledWith(Tags.DB_TYPE, instrumentation.DB_TYPE)
