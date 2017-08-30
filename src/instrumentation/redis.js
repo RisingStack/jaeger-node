@@ -44,20 +44,16 @@ function patch (redis, tracer) {
           		})
           	span.setTag(opentracing.Tags.ERROR, true)
         	}
-      		// console.log(err);
       		if (replies) {
-      			console.log(commandObj);
           		span.log({
             	result: replies
           		})
-          		console.log(replies);
         	}
       		span.finish()
       		if (originalCallback) {
           		originalCallback(err, replies)
         		}
       	}
-      	// console.log(commandObj.callback);
       	return original.apply(this, arguments)
     }
   }}

@@ -79,6 +79,8 @@ function unpatch (mongodb) {
 module.exports = {
   module: 'mongodb-core',
   supportedVersions: ['1.x', '2.x'],
+  OPERATION_NAME,
+  DB_TYPE,
   patch,
   unpatch
 }

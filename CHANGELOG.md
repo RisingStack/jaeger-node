@@ -1,3 +1,25 @@
+<a name="2.3.0"></a>
+## 2.3.0 (2017-08-28)
+
+
+<a name="2.2.0"></a>
+## 2.2.0 (2017-08-26)
+
+
+#### Features
+
+* **mysql:** add instrumentation ([36fb2c5d](git+https://github.com/RisingStack/jaeger-node.git/commit/36fb2c5d))
+
+
+<a name="2.1.3"></a>
+## 2.1.3 (2017-08-23)
+
+* test(mongo-core): cover with tests ([8374502](https://github.com/RisingStack/jaeger-node/commit/8374502))
+* test(pg): cover with tests ([8a110ac](https://github.com/RisingStack/jaeger-node/commit/8a110ac))
+* chore(pakage): update dependencies ([b142b94](https://github.com/RisingStack/jaeger-node/commit/b142b94))
+
+
+
 <a name="2.1.2"></a>
 ## 2.1.2 (2017-07-12)
 

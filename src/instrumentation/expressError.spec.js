@@ -63,11 +63,16 @@ describe('instrumentation: expressError', () => {
       expect(mockChildSpan.finish).to.have.callCount(1)
     })
 
-    it.skip('should catch error when error middleware is not presented', async () => {
+    it('should catch error when error middleware is not presented', async function () {
+      // express logs to console when there is no error mw presented
+      this.sandbox.stub(console, 'error').callsFake(() => {})
+
       const err = new Error('My Error')
       const app = express()
 
       app.get('/', (req, res, next) => next(err))
+      // dummy middleware, we hook for use
+      app.use((req, res, next) => next())
 
       await request(app)
         .get('/')
@@ -84,6 +89,27 @@ describe('instrumentation: expressError', () => {
         message: err.message,
         stack: err.stack
       })
+      expect(mockChildSpan.finish).to.have.callCount(1)
+    })
+
+    it('should catch error once when multiple middleware is applied', async function () {
+      // express logs to console when there is no error mw presented
+      this.sandbox.stub(console, 'error').callsFake(() => {})
+
+      const err = new Error('My Error')
+      const app = express()
+
+      app.get('/', (req, res, next) => next(err))
+      // dummy middleware, we hook for use
+      app.use((req, res, next) => next())
+      app.use((req, res, next) => next())
+      app.use((req, res, next) => next())
+
+      await request(app)
+        .get('/')
+        .expect(500)
+        .end()
+
       expect(mockChildSpan.finish).to.have.callCount(1)
     })
   })

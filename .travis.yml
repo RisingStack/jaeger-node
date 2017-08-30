@@ -4,10 +4,22 @@ cache:
     - node_modules
 notifications:
   email: false
+services:
+  - mongodb
+  - mysql
+  - postgresql
+  - redis-server
 node_js:
   - 'stable'
   - '8'
+env:
+  global:
+    - MYSQL_URI=mysql://root:@localhost/test_jaeger
+    - PG_URI=postgres://postgres:@localhost:5432/test_jaeger
+    - MONGODB_URI=mongodb://localhost/test_jaeger
 before_script:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test_jaeger;'
+  - psql -c 'create database test_jaeger;' -U postgres
   - npm prune
 branches:
   except:

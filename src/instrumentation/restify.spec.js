@@ -3,11 +3,11 @@
 const request = require('super-request')
 const { expect } = require('chai')
 const { Tracer, Tags } = require('opentracing')
-const express = require('express')
+const restify = require('restify')
 const cls = require('../cls')
-const instrumentation = require('./express')
+const instrumentation = require('./restify')
 
-describe('instrumentation: express', () => {
+describe('instrumentation: restify', () => {
   let tracer
   let mockSpan
 
@@ -21,27 +21,27 @@ describe('instrumentation: express', () => {
 
     this.sandbox.stub(cls, 'startRootSpan').callsFake(() => mockSpan)
 
-    instrumentation.patch(express, tracer)
+    instrumentation.patch(restify, tracer)
   })
 
   afterEach(() => {
-    instrumentation.unpatch(express)
+    instrumentation.unpatch(restify)
   })
 
   describe('#patch', () => {
     it('should create a span without parent', async () => {
       // test
-      const app = express()
-      app.get('/', (req, res) => res.send('ok'))
+      const server = restify.createServer()
+      server.get('/', (req, res) => res.send('ok'))
 
-      await request(app)
+      await request(server)
         .get('/')
         .expect(200)
         .end()
 
       expect(cls.startRootSpan).to.be.calledWith(tracer, instrumentation.OPERATION_NAME)
 
-      expect(mockSpan.setTag).to.be.calledWith(Tags.HTTP_URL, 'http://127.0.0.1/')
+      expect(mockSpan.setTag).to.be.calledWith(Tags.HTTP_URL, '/')
       expect(mockSpan.setTag).to.be.calledWith(Tags.HTTP_METHOD, 'GET')
       expect(mockSpan.setTag).to.be.calledWith(Tags.SPAN_KIND_RPC_SERVER, true)
       expect(mockSpan.log).to.be.calledWith({ peerRemoteAddress: '::ffff:127.0.0.1' })
@@ -55,10 +55,10 @@ describe('instrumentation: express', () => {
       const parentSpan = tracer.startSpan('http_request')
       tracer.inject(parentSpan, headers)
 
-      const app = express()
-      app.get('/', (req, res) => res.send('ok'))
+      const server = restify.createServer()
+      server.get('/', (req, res) => res.send('ok'))
 
-      await request(app)
+      await request(server)
         .get('/')
         .headers(headers)
         .expect(200)
@@ -68,13 +68,13 @@ describe('instrumentation: express', () => {
     })
 
     it('should set error tag for > 3xx status codes', async () => {
-      const app = express()
-      app.get('/', (req, res) => {
+      const server = restify.createServer()
+      server.get('/', (req, res) => {
         res.statusCode = 400
         res.send('ok')
       })
 
-      await request(app)
+      await request(server)
         .get('/')
         .expect(400)
         .end()
