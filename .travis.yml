@@ -13,7 +13,7 @@ node_js:
   - '8'
 env:
   global:
-    - MYSQL_URI=mysql://travis:@localhost/test_jaeger
+    - MYSQL_URI=mysql://root:@localhost/test_jaeger
     - PG_URI=postgres://postgres:@localhost:5432/test_jaeger
     - MONGODB_URI=mongodb://localhost/test_jaeger
 before_script:
