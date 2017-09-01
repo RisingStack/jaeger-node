@@ -4,7 +4,9 @@
 
 Out of the box distributed tracing for [Node.js](https://nodejs.org) applications.
 
-**WARNING: experimental library, do not use in production yet**
+**WARNING: experimental library, do not use in production yet**  
+
+**This library is a higher level wrapper around [opentracing-auto](https://github.com/RisingStack/opentracing-auto), that you should consider to use instead of this library.**
 
 ## Technologies
 
@@ -72,21 +74,10 @@ Create a new Tracer and instrument modules.
   - *optional*
   - example: `{ tags: { gitHash: 'foobar' } }`
 
-
 ## Instrumentations
 
-- [http, https](https://nodejs.org/api/http.html)
-- [express](https://expressjs.com/)
-- [restify](http://restify.com/)
-- [MongoDB](https://www.npmjs.com/package/mongodb-core)
-- [PostgreSQL](https://www.npmjs.com/package/pg)
-- [MySQL](https://www.npmjs.com/package/mysql)
+Check out [opentracing-auto instrumentations](https://github.com/RisingStack/opentracing-auto#instrumentations).
 
 ## EMSGSIZE and UDP buffer limits
 
 Read more about it in the [Client Libraries](https://github.com/uber/jaeger/blob/master/docs/client_libraries.md#emsgsize-and-udp-buffer-limits) documentation.
-
-## Feature ideas
-
-- More database instrumentation: Redis etc.
-- More messaging layer instrumentation: HTTP/2, GRPC, RabbitMQ, Kafka etc.
