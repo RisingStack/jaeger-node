@@ -81,6 +81,7 @@ Create a new Tracer and instrument modules.
 - [MongoDB](https://www.npmjs.com/package/mongodb-core)
 - [PostgreSQL](https://www.npmjs.com/package/pg)
 - [MySQL](https://www.npmjs.com/package/mysql)
+- [Redis](https://www.npmjs.com/package/redis-server)
 
 ## EMSGSIZE and UDP buffer limits
 
@@ -88,5 +89,4 @@ Read more about it in the [Client Libraries](https://github.com/uber/jaeger/blob
 
 ## Feature ideas
 
-- More database instrumentation: Redis etc.
 - More messaging layer instrumentation: HTTP/2, GRPC, RabbitMQ, Kafka etc.
