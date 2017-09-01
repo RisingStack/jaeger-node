@@ -1,3 +1,12 @@
+<a name="2.4.0"></a>
+## 2.4.0 (2017-09-01)
+
+
+#### Features
+
+* **package:** use @risingstack/opentracing-auto for instrumentation ([76174858](git+https://github.com/RisingStack/jaeger-node.git/commit/76174858))
+
+
 <a name="2.3.0"></a>
 ## 2.3.0 (2017-08-28)
 
